@@ -1,0 +1,349 @@
+
+:root {
+  --bg-color: #121212;
+  --window-bg: #2b2b2b;
+  --window-border-light: #444;
+  --window-border-dark: #111;
+  --text-color: #e0e0e0;
+  --input-bg: #1a1a1a;
+  --border-color: #444;
+  --titlebar-bg: #000044;
+  --listbox-bg: #1a1a1a;
+  --header-bg: #333;
+  --highlight: #444;
+  --progress-bg: #000;
+  --progress-bar: #388e3c;
+  --roster-item-bg: #222233;
+  --roster-border: #444466;
+  --roster-item-lit: #444477;
+  --button-bg: #333;
+  --button-text: #e0e0e0;
+  --link-color: #88ccff;
+}
+
+/* --- Global Resets & Basics (progros.css) --- */
+
+html, body, div, span, applet, object, iframe, h1, h2, h3, h4,
+h5, h6, p, blockquote, pre, a, abbr, acronym, address, big, cite,
+code, del, dfn, em, font, img, ins, kbd, q, s, samp, small,
+strike, strong, sub, sup, tt, var, b, u, i, center, dl, dt, dd,
+ol, ul, li, fieldset, form, label, legend, table, caption, tbody,
+tfoot, thead, tr, th, td { 
+  margin: 0; 
+  padding: 0; 
+  border: 0;
+  outline: 0; 
+  font-size: 100%; 
+  vertical-align: baseline;
+  background: transparent; 
+  box-sizing: content-box; /* Revert React default to match legacy calc */
+}
+
+body { 
+  line-height: 1; 
+  background-color: var(--bg-color);
+  color: var(--text-color);
+  background-repeat: no-repeat;
+  background-size: 100% 100%;
+  background-attachment: fixed;
+  text-align: center;
+  margin-top: 1em;
+  font-family: Tahoma, Helvetica, sans-serif;
+}
+
+ol, ul { list-style: none; }
+blockquote, q { quotes: none; }
+table { border-collapse: collapse; border-spacing: 0; }
+a { color: var(--link-color); cursor: pointer; }
+
+/* Layout Utilities */
+.hbox > * { vertical-align: middle; display: inline-block; }
+.vbox > * { display: block; }
+.vbox { vertical-align: top; display: inline-block; }
+
+/* Typography */
+td, th, .label, tr input, #titlebar, div { 
+  font-family: Tahoma, Helvetica, sans-serif;
+  font-size: 8pt;
+}
+
+td, th { padding-left: 1ex; }
+
+th { 
+  border-bottom: solid 1px var(--border-color);
+  text-align: left;
+  font-weight: normal;
+  background-color: var(--header-bg);
+  color: var(--text-color);
+}
+th:first-child { border-right: solid 1px var(--border-color); }
+
+/* UI Elements */
+input, select, textarea {
+  background-color: var(--input-bg);
+  color: var(--text-color);
+  border: 1px solid var(--border-color);
+}
+
+button {
+  background-color: var(--button-bg);
+  color: var(--button-text);
+  border: 1px outset var(--border-color);
+  cursor: pointer;
+}
+button:active { border-style: inset; }
+
+/* Window Chrome */
+.window { 
+  background-color: var(--window-bg); 
+  border: 2px solid;
+  border-color: var(--window-border-light) var(--window-border-dark) var(--window-border-dark) var(--window-border-light);
+  padding: 2px;
+  text-align: left;
+  display: inline-block;
+  box-shadow: 0 0 10px rgba(0,0,0,0.5);
+}
+
+#titlebar { 
+  background-color: var(--titlebar-bg);
+  color: white;
+  font-weight: bold;
+  font-size: 9pt;
+  padding-bottom: 4px;
+  margin-bottom: 1ex;
+  text-align: left;
+  display: block;
+}
+
+#titlebar > img { 
+  vertical-align: bottom;
+  margin: 2px 0 0 2px;
+}
+
+#quit {
+  float: right;
+  margin: 2px 2px 0 0;
+  width: 16px;
+  height: 16px;
+  padding: 0;
+  cursor: pointer;
+  display: inline-block;
+}
+
+/* Scrollable Areas */
+div.scroll { 
+  overflow: scroll;
+  height: 100px;
+  width: 250px;
+  overflow-x: hidden;
+  background-color: var(--listbox-bg);
+  border: 1px solid var(--border-color);
+}
+
+/* --- Game View Layout (main.css) --- */
+
+thead.mid { border-top: solid 1px var(--border-color); }
+.label { margin-top: 3px; display: block; font-weight: bold; }
+
+.listbox { 
+  border: solid 1px black;
+  background-color: var(--listbox-bg);
+}
+
+/* Progress Bars */
+div.progress-container { 
+  border: 1px solid #444; 
+  margin: 2px 5px 2px 0; 
+  padding: 1px; 
+  background: var(--progress-bg);
+  overflow: hidden;
+  position: relative;
+  height: 14px;
+}
+
+div.progress-container > div.bar { 
+  background-color: var(--progress-bar); 
+  height: 14px;
+}
+
+div.hint { 
+  z-index: 20;
+  position: absolute;
+  top: 1px;
+  left: 0;
+  width: 100%;
+  visibility: hidden;
+  text-align: center;
+  color: #fff;
+  text-shadow: 1px 1px 0 #000;
+  font-size: 8pt;
+}
+div.progress-container:hover div.hint { visibility: visible; }
+
+
+/* Specific Dimensions (Strict Fidelity) */
+
+#main.window { width: 686px; }
+
+#Trats, #Plots, #Plots table, #Quests, #Quests table { width: 200px; }
+#Izquierda, #Derecha { width: 202px; }
+
+#Spells       { width: 200px; }
+#Spells table { width: 184px; }
+
+#Trats th, #Trats td             { width: 145px; }
+#Trats th:first-child, #Trats td:first-child { width:  55px; }
+
+tr { height: 15px; }
+#Spells    { height: 236px; }
+#Inventory { height: 281px; }
+#Plots     { height: 147px; }
+#Quests    { height: 294px; }
+
+#ExpBar, #ExpBar .hint, 
+#PlotBar, #PlotBar .hint,
+#QuestBar, #QuestBar .hint { width: 198px; }
+
+#Equips { width: 272px; }
+
+#Inventory       { width: 270px; }
+#Inventory table { width: 254px; }
+
+#Centro { width: 274px; }
+
+#Equips th, #Equips td             { width: 202px; }
+#Equips th:first-child, #Equips td:first-child { width:  70px; }
+
+#EncumBar, #EncumBar .hint { width: 268px; }
+
+#Spells .value { width: 12ex; }
+#Inventory .value { width: 6ex; }
+
+#TaskBar, #TaskBar .hint { width: 680px; }
+
+#Quests td, #Plots td { padding-left: 0; }
+#Kill { height: 15px; text-align: left; }
+
+/* --- New Guy Modal (newguy.css) --- */
+
+#newguy.window { width: 508px; }
+#newguy > .client { padding: 4px; }
+#newguy > #titlebar { margin-bottom: 0; }
+
+fieldset {
+  border: solid 1px var(--border-color);
+  width: 180px;
+  padding: 5px;
+  margin: 2px;
+  box-sizing: border-box; /* Ensures width includes padding/border to fit in column */
+  min-width: 0;
+}
+legend { color: var(--text-color); }
+
+fieldset table {
+  width: 100px;
+  border: none;
+  border-spacing: 10px;
+  border-collapse: separate;
+  background-color: transparent;
+}
+
+fieldset table th {
+  border: none;
+  margin-bottom: 1ex;
+  width: 5ex;
+  background: transparent;
+}
+
+fieldset table td {
+  border: solid 1px var(--border-color);
+  text-align: center;
+  width: 4ex;
+}
+
+#races, #classes {
+  width: 185px;
+  height: 385px;
+  overflow-y: scroll;
+  background: var(--listbox-bg);
+}
+
+#stats, #gametype { width: 109px; }
+#stats { height: 120px; }
+#gametype { margin-top: 4px; height: 71px; }
+
+.window#newguy .vbox button { width: 75px; margin: 4px; }
+#newguy input[type="text"] { height: 20px; width: 200px; }
+
+/* --- Roster (roster.html) --- */
+
+.brag {
+  display: inline-block;
+  background-color: var(--roster-item-bg);
+  margin: 5px;
+  border: solid 2px var(--roster-border);
+  vertical-align: top;
+}
+.lit { border: solid 2px #66ccee; background-color: var(--roster-item-lit); }
+
+.brag td {
+  font-size: 9pt;
+  padding: 4px;
+}
+
+.bragtable { display: inline-block; border-spacing: 20px; }
+
+div.rc { font-size: 9pt; color: var(--text-color); }
+div.bs { font-size: 7pt; color: #aaa; }
+
+.online { background-color: #2a352a; border-color: #388e3c; }
+
+a.icon.go { font-size: 3em; cursor: pointer; color: #aaa; text-decoration: none; }
+a.icon.go:hover { color: #fff; }
+
+a.x, a.sheet, a.save { cursor: pointer; text-decoration: none; }
+a.x:hover { color: red; }
+
+.banter {
+  font-size: 11pt;
+  font-style: italic;
+  margin: 20px;
+  color: #ccc;
+}
+
+.dropinfo {
+  text-align: center;
+  font-style: italic;
+  border: solid 1px var(--border-color);
+  width: 550px;
+  margin: auto;
+  margin-bottom: 20px;
+  background-color: var(--window-bg);
+  border-radius: 0.3rem;
+  padding: 10px;
+}
+
+.file-upload-label {
+  cursor: pointer; 
+  border: 1px solid var(--border-color); 
+  background: var(--button-bg); 
+  padding: 4px 12px;
+  border-radius: 4px;
+  display: inline-block;
+  margin-top: 10px;
+  color: var(--button-text);
+}
+.file-upload-label:hover {
+    background: #444;
+}
+
+/* Modal Overlay to mimic window behavior */
+.modal-overlay {
+  position: fixed;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background: rgba(0,0,0,0.7);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
